@@ -35,9 +35,9 @@ class RegisteredUserController extends Controller
             'kana' => ['required', 'string', 'regex:/\A[ア-ヴー\s]+\z/u','max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'postal_code' => ['require','digits:7'],
-            'address' => ['require', 'string', 'max:255'],
-            'phone_number' => ['require', 'digits_between:10, 11'],
+            'postal_code' => ['required','digits:7'],
+            'address' => ['required', 'string', 'max:255'],
+            'phone_number' => ['required', 'digits_between:10, 11'],
             'birthday' =>['nullable', 'digits:8'],
             'occupation' =>['nullable', 'string', 'max:255'],
         ]);
