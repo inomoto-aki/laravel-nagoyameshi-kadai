@@ -12,13 +12,14 @@ use Illuminate\View\View;
 
 class AuthenticatedSessionController extends Controller
 {
-     /**
+      /**
      * Display the login view.
      */
     public function create(): View
     {
         return view('admin.auth.login');
     }
+
     /**
      * Handle an incoming authentication request.
      */
@@ -30,13 +31,14 @@ class AuthenticatedSessionController extends Controller
 
         return redirect()->intended(RouteServiceProvider::ADMIN_HOME);
     }
-     /**
+
+    /**
      * Destroy an authenticated session.
      */
-    public function destroy(Requset $request): RedirectResponse
+    public function destroy(Request $request): RedirectResponse
     {
-         Auth::guard('admin')->logout();
-         
+        Auth::guard('admin')->logout();
+
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
