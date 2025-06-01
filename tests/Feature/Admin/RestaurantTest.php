@@ -343,7 +343,7 @@ class RestaurantTest extends TestCase
         $resturant = Restaurant::latest('id')->first();
 
         foreach ($category_ids as $category_id) {
-            $this->assertDatabaseMissing('category_restaurant', ['category_id' => $category_id]);
+           $this->assertDatabaseHas('category_restaurant', ['restaurant_id' => $restaurant->id, 'category_id' => $category_id]);
         }
 
         $response->assertRedirect(route('admin.restaurants.show', $old_restaurant));
