@@ -337,10 +337,10 @@ class RestaurantTest extends TestCase
 
         $response = $this->actingAs($admin, 'admin')->patch(route('admin.restaurants.update', $old_restaurant), $new_restaurant_data);
 
-       unset($new_restaurant_data['category_ids']);
+        unset($new_restaurant_data['category_ids']);
         $this->assertDatabaseHas('restaurants', $new_restaurant_data);
 
-        $resturant = Restaurant::latest('id')->first();
+        $restaurant = Restaurant::latest('id')->first();
 
         foreach ($category_ids as $category_id) {
            $this->assertDatabaseHas('category_restaurant', ['restaurant_id' => $restaurant->id, 'category_id' => $category_id]);
