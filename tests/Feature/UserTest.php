@@ -11,9 +11,9 @@ use Tests\TestCase;
 
 class UserTest extends TestCase
 {
-use RefreshDatabase;
+ use RefreshDatabase;
 
-    
+    // 未ログインのユーザーは会員側の会員情報ページにアクセスできない
     public function test_guest_cannot_access_user_index()
     {
         $response = $this->get(route('user.index'));
@@ -21,7 +21,7 @@ use RefreshDatabase;
         $response->assertRedirect(route('login'));
     }
 
-    
+    // ログイン済みの一般ユーザーは会員側の会員情報ページにアクセスできる
     public function test_user_can_access_user_index()
     {
         $user = User::factory()->create();
@@ -31,7 +31,7 @@ use RefreshDatabase;
         $response->assertStatus(200);
     }
 
-    
+    // ログイン済みの管理者は会員側の会員情報ページにアクセスできない
     public function test_admin_cannot_access_user_index()
     {
         $admin = new Admin();
@@ -44,6 +44,7 @@ use RefreshDatabase;
         $response->assertRedirect(route('admin.home'));
     }
 
+    // 未ログインのユーザーは会員側の会員情報編集ページにアクセスできない
     public function test_guest_cannot_access_user_edit()
     {
         $user = User::factory()->create();
@@ -53,7 +54,7 @@ use RefreshDatabase;
         $response->assertRedirect(route('login'));
     }
 
-   
+    // ログイン済みの一般ユーザーは会員側の他人の会員情報編集ページにアクセスできない
     public function test_user_cannot_access_others_user_edit()
     {
         $user = User::factory()->create();
@@ -64,7 +65,7 @@ use RefreshDatabase;
         $response->assertRedirect(route('user.index'));
     }
 
-   
+    // ログイン済みの一般ユーザーは会員側の自身の会員情報編集ページにアクセスできる
     public function test_user_can_access_own_user_edit()
     {
         $user = User::factory()->create();
@@ -74,7 +75,7 @@ use RefreshDatabase;
         $response->assertStatus(200);
     }
 
-    
+    // ログイン済みの管理者は会員側の会員情報編集ページにアクセスできない
     public function test_admin_cannot_access_user_edit()
     {
         $admin = new Admin();
@@ -89,7 +90,7 @@ use RefreshDatabase;
         $response->assertRedirect(route('admin.home'));
     }
 
-   
+    // 未ログインのユーザーは会員情報を更新できない
     public function test_guest_cannot_access_user_update()
     {
         $old_user = User::factory()->create();
@@ -111,7 +112,7 @@ use RefreshDatabase;
         $response->assertRedirect(route('login'));
     }
 
-   
+    // ログイン済みの一般ユーザーは他人の会員情報を更新できない
     public function test_user_cannot_access_others_user_update()
     {
         $user = User::factory()->create();
@@ -134,7 +135,7 @@ use RefreshDatabase;
         $response->assertRedirect(route('user.index'));
     }
 
-    
+    // ログイン済みの一般ユーザーは自身の会員情報を更新できる
     public function test_user_can_access_own_user_update()
     {
         $old_user = User::factory()->create();
@@ -156,6 +157,7 @@ use RefreshDatabase;
         $response->assertRedirect(route('user.index'));
     }
 
+    // ログイン済みの管理者は会員情報を更新できない
     public function test_admin_cannot_access_user_update()
     {
         $admin = new Admin();
