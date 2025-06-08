@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Nodels\Adim;
+use App\Models\Admin;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Testing\RefreshDatabase;
