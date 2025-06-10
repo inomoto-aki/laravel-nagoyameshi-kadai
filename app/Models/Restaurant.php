@@ -25,7 +25,9 @@ class Restaurant extends Model
     public function reservations(){
         return $this->hasMany(Reservation::class);
     }
-
+    public function favorited_users() {
+        return $this->belongsToMany(User::class)->withTimestamps();
+    }
     public function ratingSortable($query, $direction){
         return $query->withAvg('reviews', 'score')->orderBy('reviews_avg_score', $direction);
     }
